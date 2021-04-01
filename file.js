@@ -1,10 +1,10 @@
 
 /*Variable pour les colonnes*/
+let line  = document.getElementById("line")
 let column1 = document.getElementById("column1")
 let column2 = document.getElementById("column2")
 let column3 = document.getElementById("column3")
 let column4 = document.getElementById("column4")
-
 let boxes = []
 
 function createCube(idColumn){
@@ -56,17 +56,27 @@ export function animation(){
     compteur++
     requestAnimationFrame(animation)
 }
-requestAnimationFrame(animation)
 
+requestAnimationFrame(animation)
 changeColor()
 
 function changeColor(){
 
     document.addEventListener('click', function(e) {
         e = window.event;
-        var target = e.target
+        let target = e.target
         if (target.classList.value == "box"){
-            target.style.backgroundColor = "red"
+            let yLine = line.getBoundingClientRect().y
+            
+            if (target.getAttribute("isValid")== null){
+                if (target.getBoundingClientRect().bottom >= yLine && target.getBoundingClientRect().top <= yLine){
+                    target.style.backgroundColor = "green"
+                    target.setAttribute("isValid","true")
+                }else{
+                    target.style.backgroundColor = "red"
+                    target.setAttribute("isValid","false")
+                }
+            }
         }
-        }, false);
+    }, false);
 }

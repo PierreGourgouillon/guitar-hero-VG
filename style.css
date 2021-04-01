@@ -20,15 +20,15 @@ html,body{
 
 .box{
     position: absolute;
-    background-color: green;
+    background-color: black;
     width: 50px;
     height: 50px;
     margin-left: 125px;
 }
 
-.line{
+#line{
     position: relative;
-    border: 1px solid black;
+    border: 1px solid yellow;
     width: 99.9%;
     top: 85vh;
 }
