@@ -1,0 +1,34 @@
+html,body{
+    margin: 0;
+    padding: 0;
+}
+
+.container-flex{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.col{
+    width: 300px;
+    height: 99vh;
+    overflow: hidden;
+}
+
+.box{
+    position: absolute;
+    background-color: green;
+    width: 50px;
+    height: 50px;
+    margin-left: 125px;
+}
+
+.line{
+    position: relative;
+    border: 1px solid black;
+    width: 99.9%;
+    top: 85vh;
+}
