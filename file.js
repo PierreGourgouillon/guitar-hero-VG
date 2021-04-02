@@ -1,11 +1,15 @@
 
 /*Variable pour les colonnes*/
-let line  = document.getElementById("line")
-let column1 = document.getElementById("column1")
-let column2 = document.getElementById("column2")
-let column3 = document.getElementById("column3")
-let column4 = document.getElementById("column4")
+const line  = document.getElementById("line")
+const column1 = document.getElementById("column1")
+const column2 = document.getElementById("column2")
+const column3 = document.getElementById("column3")
+const column4 = document.getElementById("column4")
 let boxes = []
+let timerFinish = false
+let actualScore = 0
+let suu = new Audio("su.mp3")
+let musicFinish = new Audio("cbo.mp3")
 
 function createCube(idColumn){
     let column
@@ -27,6 +31,11 @@ function createCube(idColumn){
 
     let div = document.createElement("div")
     div.className = "box"
+    div.setAttribute("isClick","false")
+    let width = randomInteger(25,50).toString()
+    let height = randomInteger(50,100).toString()
+    div.style.width = width + "px"
+    div.style.height = height + "px"
     column.append(div)
     boxes.push({
         height:50,
@@ -35,6 +44,11 @@ function createCube(idColumn){
         element : div,
     })
 }
+
+function randomInteger(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 let compteur = 0
 
 export function animation(){
@@ -49,34 +63,85 @@ export function animation(){
         boxes[i].top += 1
         boxes[i].element.style.marginTop = boxes[i].top + 'px'
 
-        if (boxes[i].top > 850){
+        if (boxes[i].top > line.getBoundingClientRect().y){
+            if (boxes[i].element.getAttribute("isClick") == "false"){
+                score(false)
+                trolling()
+                boxes[i].element.setAttribute("isClick","true")
+            }
             boxes[i].element.remove()
         }
     }
+
+    if (timerFinish){
+        cancelAnimationFrame(loop)
+    }
+
     compteur++
-    requestAnimationFrame(animation)
+    let loop = requestAnimationFrame(animation)
 }
 
 requestAnimationFrame(animation)
+timer()
 changeColor()
-
 function changeColor(){
-
     document.addEventListener('click', function(e) {
         e = window.event;
         let target = e.target
         if (target.classList.value == "box"){
             let yLine = line.getBoundingClientRect().y
+            target.setAttribute("isClick","true")
             
-            if (target.getAttribute("isValid")== null){
-                if (target.getBoundingClientRect().bottom >= yLine && target.getBoundingClientRect().top <= yLine){
+            if (target.getAttribute("isValid")== null && !timerFinish){
+                if (target.getBoundingClientRect().bottom <= yLine && target.getBoundingClientRect().top <= yLine){
                     target.style.backgroundColor = "green"
                     target.setAttribute("isValid","true")
+                    score(true)
+                    suu.play()
                 }else{
                     target.style.backgroundColor = "red"
                     target.setAttribute("isValid","false")
+                    score(false)
+                    trolling()
                 }
             }
         }
-    }, false);
+    });
+}
+
+
+function score(isHit){
+    let scorer = document.getElementById("score")
+    if (isHit){
+        actualScore += 10
+        scorer.innerText = actualScore.toString() + " points"
+    }else{
+        actualScore -= 10
+        scorer.innerText = actualScore.toString() + " points"
+    }
+}
+
+function trolling(){
+    if (actualScore < 0 ){
+        let text = document.getElementById("troll")
+        text.style.visibility = "visible"
+        text.innerText = "Arrete de jouer et retourne coder :)"
+        timerFinish = true
+    }
+}
+
+function timer(){
+    let textTimer = document.getElementById("timer")
+    let compteur = 59
+
+    let intervalTimer = setInterval(()=>{
+        textTimer.innerText = "00:"+compteur
+        
+        if (compteur == 0 || timerFinish){
+            timerFinish = true
+            clearInterval(intervalTimer)
+            musicFinish.play()
+        }
+        compteur--
+    },1000) 
 }
