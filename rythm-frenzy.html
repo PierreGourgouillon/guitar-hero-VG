@@ -8,11 +8,20 @@
     <title>Rythm frenzy</title>
     
 </head>
-<body>
-    <p id="timer">1:00</p>
+<body style="background: url('image-game.jpg') no-repeat">
+
+    <div id="popUpDiv">
+        <button id="btn1" class="style-button" timer="59">1 minute</button>
+        <button id="btn2" class="style-button" timer="119">2 minutes</button>
+        <button id="btn3" class="style-button" timer="179">3 minutes</button>
+    </div>
+
+    <p id="timer"></p>
     <p id="score">0 points</p>
+    <button type="button" onclick="location.href='menu.html'" id="btn0" class="style-button">Retour</button>
     <p id="troll"></p>
     <div id="line"></div>
+
     <div class="container-flex">
         <div class="col" id="column1" ></div>
         <div class="col" id="column2"></div>
@@ -23,6 +32,7 @@
     <script type="module" src="file.js">
 
     </script>
-    
+
+
 </body>
 </html>

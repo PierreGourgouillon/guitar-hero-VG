@@ -51,7 +51,7 @@ function randomInteger(min, max) {
 
 let compteur = 0
 
-export function animation(){
+function animation(){
 
     let randomNumber = Math.floor(Math.random() * 4);
     if (compteur > 100 ){
@@ -64,7 +64,7 @@ export function animation(){
         boxes[i].element.style.marginTop = boxes[i].top + 'px'
 
         if (boxes[i].top > line.getBoundingClientRect().y){
-            if (boxes[i].element.getAttribute("isClick") == "false"){
+            if (boxes[i].element.getAttribute("isClick") === "false"){
                 score(false)
                 trolling()
                 boxes[i].element.setAttribute("isClick","true")
@@ -81,14 +81,14 @@ export function animation(){
     let loop = requestAnimationFrame(animation)
 }
 
-requestAnimationFrame(animation)
-timer()
-changeColor()
+popUpTimer()
+
+
 function changeColor(){
     document.addEventListener('click', function(e) {
         e = window.event;
         let target = e.target
-        if (target.classList.value == "box"){
+        if (target.classList.value === "box"){
             let yLine = line.getBoundingClientRect().y
             target.setAttribute("isClick","true")
             
@@ -109,9 +109,10 @@ function changeColor(){
     });
 }
 
-
 function score(isHit){
     let scorer = document.getElementById("score")
+    scorer.style.visibility = "visible"
+
     if (isHit){
         actualScore += 10
         scorer.innerText = actualScore.toString() + " points"
@@ -125,23 +126,49 @@ function trolling(){
     if (actualScore < 0 ){
         let text = document.getElementById("troll")
         text.style.visibility = "visible"
-        text.innerText = "Arrete de jouer et retourne coder :)"
+        text.innerText = "Arrête de jouer et retourne coder :)"
         timerFinish = true
     }
 }
 
-function timer(){
+function timer(time){
     let textTimer = document.getElementById("timer")
-    let compteur = 59
+    let compteur = time
 
     let intervalTimer = setInterval(()=>{
-        textTimer.innerText = "00:"+compteur
+        textTimer.innerText = compteur
         
-        if (compteur == 0 || timerFinish){
+        if (compteur === 0 || timerFinish){
             timerFinish = true
             clearInterval(intervalTimer)
             musicFinish.play()
         }
         compteur--
-    },1000) 
+    },1000)
+}
+
+function popUpTimer(){
+    document.getElementById("btn1").addEventListener('click',function (){
+        let popUp = document.getElementById("popUpDiv")
+        popUp.style.visibility = "hidden"
+        requestAnimationFrame(animation)
+        timer(59)
+        changeColor()
+    })
+
+    document.getElementById("btn2").addEventListener('click',function (){
+        let popUp = document.getElementById("popUpDiv")
+        popUp.style.visibility = "hidden"
+        requestAnimationFrame(animation)
+        timer(119)
+        changeColor()
+    })
+
+    document.getElementById("btn3").addEventListener('click',function (){
+        let popUp = document.getElementById("popUpDiv")
+        popUp.style.visibility = "hidden"
+        requestAnimationFrame(animation)
+        timer(179)
+        changeColor()
+    })
 }
