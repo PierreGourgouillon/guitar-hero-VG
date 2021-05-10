@@ -43,20 +43,40 @@ html,body{
 }
 
 #troll{
-    position: absolute;
-    visibility: hidden;
     font-size: 80px;
     font-family: 'Bangers', cursive;
     text-align: center;
-    color: orangered;
-    left: 15%;
-    z-index: 100;
+    color: #e552ff;
+}
+
+#div-pop{
+    position: absolute;
+    text-align: center;
+    left: 25%;
     top: 25%;
+    z-index: 15;
+}
+
+#refreshGame{
+    width: 200px;
+    height: 100px;
+    border: 5px solid #6652ff;
+    border-radius: 5px;
+    text-transform: uppercase;
+    background: transparent;
+    color: #e552ff;
+    font-size: 30px;
+    letter-spacing: 5px;
+    font-family: 'Bangers', cursive;
+}
+
+#refreshGame:hover{
+    border: 5px solid #fffd70;
 }
 
 #line{
     position: relative;
-    border: 1px solid #6652ff;
+    border: 1px solid yellow;
     width: 99.9%;
     top: 78vh;
 }
@@ -95,7 +115,27 @@ h1{
     font-family: 'Bangers', cursive;
 }
 
+.style-button-back{
+    position: absolute;
+    width: 200px;
+    height: 100px;
+    border: 5px solid #6652ff;
+    border-radius: 5px;
+    text-transform: uppercase;
+    background: transparent;
+    top: 10px;
+    left: 10px;
+    color: #e552ff;
+    font-size: 30px;
+    letter-spacing: 5px;
+    font-family: 'Bangers', cursive;
+}
+
 .style-button:hover{
+    border: 5px solid #fffd70;
+}
+
+.style-button-back:hover{
     border: 5px solid #fffd70;
 }
 
@@ -107,15 +147,6 @@ h1{
 
 #btn1,#btn2,#btn3{
     font-size: 30px;
-}
-
-#btn0{
-    position: absolute;
-    font-size: 25px;
-    width: 200px;
-    height: 100px;
-    margin-left: 15px;
-    margin-top: 30px;
 }
 
 /*Page Tutoriel*/

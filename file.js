@@ -10,6 +10,7 @@ let timerFinish = false
 let actualScore = 0
 let suu = new Audio("su.mp3")
 let musicFinish = new Audio("cbo.mp3")
+let compteur = 0
 
 function createCube(idColumn){
     let column
@@ -32,10 +33,8 @@ function createCube(idColumn){
     let div = document.createElement("div")
     div.className = "box"
     div.setAttribute("isClick","false")
-    let width = randomInteger(25,50).toString()
-    let height = randomInteger(50,100).toString()
-    div.style.width = width + "px"
-    div.style.height = height + "px"
+    div.style.width = randomInteger(25,50).toString() + "px"
+    div.style.height = randomInteger(50,100).toString() + "px"
     column.append(div)
     boxes.push({
         height:50,
@@ -49,17 +48,17 @@ function randomInteger(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-let compteur = 0
-
 function animation(){
 
     let randomNumber = Math.floor(Math.random() * 4);
+
     if (compteur > 100 ){
         createCube(randomNumber)
         compteur = 0
     }
     
     for(let i =0;i <boxes.length;i++){
+
         boxes[i].top += 1
         boxes[i].element.style.marginTop = boxes[i].top + 'px'
 
@@ -82,7 +81,6 @@ function animation(){
 }
 
 popUpTimer()
-
 
 function changeColor(){
     document.addEventListener('click', function(e) {
@@ -122,12 +120,15 @@ function score(isHit){
     }
 }
 
-function trolling(){
-    if (actualScore < 0 ){
-        let text = document.getElementById("troll")
+function trolling(compt){
+    if (actualScore < 0 || compt === 0){
+        let text = document.getElementById("div-pop")
         text.style.visibility = "visible"
-        text.innerText = "Arrête de jouer et retourne coder :)"
         timerFinish = true
+    }
+
+    if (compt === 0){
+        document.getElementById("troll").style.visibility = "hidden"
     }
 }
 
@@ -142,6 +143,10 @@ function timer(time){
             timerFinish = true
             clearInterval(intervalTimer)
             musicFinish.play()
+        }
+
+        if (compteur === 0){
+            trolling(compteur)
         }
         compteur--
     },1000)
